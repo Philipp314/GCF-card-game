@@ -3,6 +3,8 @@
 一款以「最大公因數」為核心的數學小遊戲。
 玩家透過選擇兩張卡牌並不斷「消除公因數」，挑戰將所有數字清空。
 
+[開啟連結 \(https://philipp314.github.io/GCD-card-game/main.html\)](https://philipp314.github.io/GCD-card-game/main.html)
+
 ---
 
 ## 🎮 遊戲規則
