@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" name="google" content="notranslate"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+      <!--
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: "Cinzel", serif;
+          background: radial-gradient(circle at center, #1a0f2e 0%, #000 100%);
+          color: #e0d8ff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+        }
+        
+        #checkerboard{
+          width: min(80vw,calc(85vh * 1.6));
+          height:min(85vh,calc(80vw / 1.6));
+          position: relative;
+          background-color:rgba(255, 200, 50, 0.15);;
+          display: grid;
+          align-items: center;
+          justify-content: center;
+          justify-items: center;
+          align-content: center;
+          grid-template-columns: repeat(5, 1fr);
+          grid-template-rows: repeat(5, 1fr);
+          gap: 10px;
+          padding: 10px 0px;
+        }
+        
+        #checkerboard span{
+          height: 85%;
+          aspect-ratio: 925/584;
+          max-width: 85%;
+          max-height: 85%;
+          border-radius: 5px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          font-size: 2em;
+          transform: rotateX(180deg);
+          color:transparent;
+          background-image: url("card.png");
+          background-size: contain;
+          background-repeat: no-repeat;
+          animation: spin 3s forwards;
+          animation-delay: calc(var(--delay) * 1s);
+        }
+        
+        #checkerboard span.active{
+          box-shadow: 0 0 20px #c084fc, 0 0 40px #a78bfa;
+        }
+        
+        @keyframes spin {
+          0% {
+            transform: rotateX(180deg);
+            background-image: url("card.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+            color:transparent;
+          }
+          10%{color:transparent;}
+          100% {
+            color:#ffffff;
+            transform: rotateX(0deg);
+            background: radial-gradient(circle at center, #1a0f2e 0%, #000 100%);
+          }
+        }
+        
+        #menu_btn{
+          position:absolute;
+          top: 0px;
+          left: 0px;
+          width: 50px;
+          height:50px;
+          background-color: #ffffff50;
+          transition: all 1s ease;
+          z-index: 101;
+          border-radius: 25px;
+        }
+        #menu_btn::after,
+        #menu_btn::before{
+          content: "";
+          transition: all 1s ease;
+          position:absolute;
+          top: 12.5px;
+          left: 15px;
+          width: 5px;
+          height:25px;
+          background-color:#fff;
+        }
+        #menu_btn::before{
+          left: 30px;
+        }
+        #menu_btn.active::after{
+          transform: rotate(-135deg);
+          left: 22.5px;
+        }
+        #menu_btn.active::before{
+          transform: rotate(135deg);
+          left: 22.5px;
+        }
+        #menu_btn.active{
+          background-color: #00000050;
+        }
+        
+        #menu{
+          position:absolute;
+          width: 30vw;
+          height: 100vh;
+          top: 0px;
+          left:0px;
+          background-color: #ffffff50;
+          z-index: 100;
+          margin: 0px -30vw;
+          transition: all 1s ease;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 3em;
+        }
+        #menu.active{
+          margin: 0px 0px;
+        }
+        
+        #menu span{
+          z-index: 999;
+          width: 20vh;
+          height: 10vh;
+          display:flex;
+          align-items: center;
+          justify-content: center;
+          color: #f5f3ff;
+          font-size: 1.5em;
+          background: rgba(50, 25, 80, 0.6);
+          border: 0.2em solid #c084fc;
+          border-radius: 1em;
+          text-shadow: 0 0 5px #a78bfa;
+        }
+        #menu span:not(:first-child):hover {
+          cursor: pointer;
+          background: #6d28d9;
+          box-shadow: 0 0 20px #c084fc, 0 0 40px #a78bfa;
+          transform: scale(1.1);
+        }
+      -->
+    </style>
+  </head>
+<!----------------------------------------------------------------------------->
+  <body class="notranslate" style="overflow:hidden;">
+    <span id="menu_btn" onclick="openMenu()"></span>
+    <div id="menu">
+      <span id="step">步數：0</span>
+      <span onclick="restart()">重新開始</span>
+    </div>
+    <div id="checkerboard"></div>
+    <script language="javascript"><!--設置卡片-->
+      <!--
+        const checkerboard = document.getElementById("checkerboard");
+        const cardList=new Array(25).fill(1);
+        let number = Array.from({ length: 25 }, (_, i) => i + 1);
+        number= number.concat(number);
+        function checkPairs(arr) {
+          for (let i = 0; i < arr.length; i += 2)
+          {if (arr[i] == arr[i + 1]) return true;}
+          return false;
+        }
+        do{number.sort(() => Math.random() - 0.5);}
+        while(checkPairs(number));
+        let delayList=Array.from({ length: 25 }, (_, i) => i + 1);
+        delayList.sort(() => Math.random() - 0.5);
+        for(let i=0;i<25;i++){
+          let card=document.createElement("span");
+          card.id=`${i}`;
+          card.style=`--delay:${delayList[i]/20};`;
+          card.setAttribute("onclick","pickCard(this)");
+          checkerboard.appendChild(card);
+          card.innerHTML=number[i*2]*number[i*2+1];
+          cardList[i]=number[i*2]*number[i*2+1];
+        }
+      -->
+    </script>
+    <script language="javascript"><!--遊戲邏輯-->
+      <!--
+        let step=0;
+        function chackGO(){
+          if(cardList.every((x,i) => cardList.slice(i+1).every(y => GCD(x,y) === 1)))
+          {
+            document.querySelectorAll('#checkerboard span').
+                forEach(obj=>obj.removeAttribute("onclick"));
+            openMenu();
+          }
+        }
+        
+        function GCD(a, b) {
+          a = Math.abs(a);
+          b = Math.abs(b);
+          while (b !== 0) {
+            let temp = b;
+            b = a % b;
+            a = temp;
+          }
+          return a;
+        }
+        let cardOnPick=null;
+        function pickCard(obj){
+          if(cardOnPick==null){
+            obj.classList.add('active');
+            cardOnPick=obj;
+          }else if(cardOnPick==obj){
+            cardOnPick=null;
+            obj.classList.remove('active');
+          }else{
+            step++;
+            document.getElementById("step").innerHTML=`步數：${step}`;
+            cardOnPick.classList.remove('active');
+            let num1=cardOnPick.innerHTML*1;
+            let num2=obj.innerHTML*1
+            let gcd=GCD(num1,num2);
+            num1/=gcd;
+            num2/=gcd;
+            cardOnPick.innerHTML=num1;
+            obj.innerHTML=num2;
+            cardList[cardOnPick.id*1]=num1;
+            cardList[obj.id*1]=num2;
+            if(num1==1){cardOnPick.style="opacity:0;z-index:-999;";}
+            if(num2==1){obj.style="opacity:0;z-index:-999;";}
+            cardOnPick=null;
+            chackGO();
+          }
+        }
+        
+        function restart(){window.location.reload();}
+        
+        const menu=document.getElementById("menu");
+        const menu_btn=document.getElementById("menu_btn");
+        function openMenu(){
+          menu.classList.toggle("active");
+          menu_btn.classList.toggle("active");
+        }
+      -->
+    </script>
+  </body>
+</html>
